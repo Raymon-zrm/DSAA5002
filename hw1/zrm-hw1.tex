@@ -201,7 +201,7 @@ Thus we get the candidate  3-itemset $C_3$.
 Reducing the transactions using dynamic hashing and prunning(DHP) algorithm.
 Set the minimum support count to 2.
 
-Hash function bucket \#= h(\{x y\}) = ((order of x)*10+(order of y)) \% 7
+Hash function bucket \#= $h(\{x y\}) = (($order of $x)*10+($order of $y)) \% 7$
 
 \subsection*{Solution}
 
@@ -294,7 +294,7 @@ Because we have:
 \begin{itemize}
   \item Items = A, B, C, D, E,
   \item Order = 1, 2, 3, 4, 5
-  \item Hash function : h(\{x y\}) = ((order of x)*10+(order of y)) \% 7
+  \item Hash function : $h(\{x y\}) = (($order of $x)*10+($order of $y)) \% 7$
 \end{itemize}
 
 Thus we have the hash table below:
@@ -428,33 +428,33 @@ it must occur in at least k candidate k-itemsets.
 
 Thus we have reduced the transactions.
 
-\section*{Q3 [35 Marks]}
+\section{Q3 [35 Marks]}
 
-An itemset X is said to be a frequent itemset if the frequency count of X is at least a given support threshold.
+An itemset $X$ is said to be a frequent itemset if the frequency count of $X$ is at least a given support threshold.
 
-An itemset Y is a proper super-itemset of X if X $\subset$ Y and X $\neq$ Y. 
+An itemset $Y$ is a proper super-itemset of $X$ if $X \subset Y$ and $X \neq Y$. 
 
-An itemset X is said to be a closed frequent itemset 
-if (1) X is frequent 
-and (2) there exists no proper super itemset Y of X such that Y is frequent 
-and Y has the same frequency count as X.
+An itemset $X$ is said to be a closed frequent itemset 
+if (1) $X$ is frequent 
+and (2) there exists no proper super itemset $Y$ of $X$ such that $Y$ is frequent 
+and $Y$ has the same frequency count as $X$.
 
-An itemset X is said to be a maximal frequent itemset
-if (1) X is frequent
-and (2) there exists no proper super-itemset Y of X such that Y is frequent.
+An itemset $X$ is said to be a maximal frequent itemset
+if (1) $X$ is frequent
+and (2) there exists no proper super-itemset $Y$ of $X$ such that $Y$ is frequent.
 
 Let $F_c$ be the set of (traditional) frequent itemsets each of which is associated with a frequency in the dataset.
 
-For example, if there are three frequent itemsets, \{$I_1$\} with frequency4,
+For example, if there are three frequent itemsets, \{$I_1$\} with frequency 4,
 \{$I_2$\} with frequency 5, and \{$I_1, I_2$\} with frequency 3,
 F=\{\{$I_1$\}, \{$I_2$\}, \{$I_2, I_2$\}\}
 and $F_c$ = \{<\{$I_1$\}, 4>, <\{$I_2$\}, 5>, <\{$I_1, I_2$\}, 3>\}.
 
-Similarly, let C be the set of closed frequent itemsets without specifying the frequency of itemsets.
+Similarly, let $C$ be the set of closed frequent itemsets without specifying the frequency of itemsets.
 
 Let $C_c$ be the set of closed frequent itemsets each of which is associated with a frequency of itemsets.
 
-Let M be the set of maximal frequent itemsets without specifying the frequency of itemsets.
+Let $M$ be the set of maximal frequent itemsets without specifying the frequency of itemsets.
 
 Ler $M_c$ be the set of maximal frequent itemsets each of which is associated with a frequency in the dataset.
 
@@ -479,5 +479,58 @@ Each row corresponds to a transaction where 1 corresponds to a presence of an it
     0 & 0 & 0 & 1 \\
     \hline
 \end{tabular}
+
+Suppose that the support threshold is 2.
+
+(a) (i) What is $F_C$? \hspace{1cm} (ii) What is $C_c$? \hspace{1cm} (iii)What is $M_c$? \textbf{(5 Marks)}
+
+(b) (i) What is the advantages and the disadvantages of using closed frequent itemsets compared with traditional frequent itemsets? \textbf{(5 Marks)}
+
+(ii) What are the advantages and the disadvantages of using frequent itemsets compared with maximal frequent itemsets? \textbf{(5 Marks)}
+
+(c) Please adapt algorithm FP-growth with the use of the FP-tree to find all closed frequent item set.
+Please write down how to adapt algorithm FP-growth and illustrate the adapted algorithm with the above example. \textbf{(20 Marks)}
+
+\subsection*{Solution}
+
+\section{Q4 [35 Marks]}
+
+A GSP example: Suppose now we have 5 events: 'Upload Songs', 'Add Tags', 'Share', 'Listen' and 'Comment'.
+The sequence database of a Music Platform is shown in following table:
+
+\begin{tabular}{|c|c|}
+  \hline
+    \rowcolor{Gray} % Set the color of the first row to gray
+    Object & Sequence \\
+    \hline
+    A & <\{'Upload Songs', 'Add Tags'\}> \\
+    \hline
+    B & <\{'Upload Songs', 'Share'\}> \\
+    \hline
+    C & <\{'Upload Songs'\}, \{'Share', 'Listen'\}> \\
+    \hline
+    D & <\{'Upload Songs'\}, \{'Upload Songs', 'Add Tags'\}, \{'Listen'\}> \\
+    \hline
+    E & <\{'Listen'\}, \{'Add Tags', 'Comment'\}, \{'Share', 'Listen'\}> \\
+    \hline
+\end{tabular}
+
+Please answer the following questions:
+
+(a) Make the first pass over the sequence database to yield all the 1-element \textbf{frequent} sequences and What is the corresponding support? \textbf{5 Marks}
+
+(b) Based on (a), do the 2-sequences Candidate Generation and Candidate Pruning. \textbf{10 Marks}
+
+(c) What is the \textbf{frequent} 2-sequences based on the result of (b)? \textbf{5 Marks}
+
+(d) Based on (c), do the 3-sequences Candidate Generation and Candidate Pruning.
+When a sequence should be pruned, you need to explain why. \textbf{10 Marks}
+
+(e) What is the frequent 3-sequences based on the result of (d)?
+Please calculate the support. \textbf{5 Marks}
+
+\textbf{Remember: For frequent k-sequences, the support >= min-support}
+
+\subsection*{Solution}
 
 \end{document}

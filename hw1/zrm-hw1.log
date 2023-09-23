@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.9.21)  23 SEP 2023 18:04
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.9.21)  24 SEP 2023 00:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1092,20 +1092,29 @@ LaTeX Font Info:    Font shape `TU/texgyretermes(0)/b/n' will be
 ]
 LaTeX Font Info:    Font shape `TU/texgyretermes(0)/m/n' will be
 (Font)              scaled to size 8.0pt on input line 385.
- [2] [3] [4] (./zrm-hw1.aux)
-Package rerunfilecheck Info: File `zrm-hw1.out' has not changed.
-(rerunfilecheck)             Checksum: 0D9F3362198D77A07551706E9E69287B;228.
+ [2] [3]
+LaTeX Font Info:    Font shape `TU/texgyretermes(0)/b/n' will be
+(Font)              scaled to size 10.0pt on input line 485.
+ [4] [5] (./zrm-hw1.aux)
+
+Package rerunfilecheck Warning: File `zrm-hw1.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `zrm-hw1.out':
+(rerunfilecheck)             Before: CA0B4CE7C6661EE2E3C36B239228B64B;553
+(rerunfilecheck)             After:  8F53A434AA75270C1C8E124CB272740C;456.
 Package logreq Info: Writing requests to 'zrm-hw1.run.xml'.
 \openout1 = `zrm-hw1.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 37304 strings out of 476683
- 781101 string characters out of 5804047
+ 37308 strings out of 476683
+ 781237 string characters out of 5804047
  1879018 words of memory out of 5000000
- 56957 multiletter control sequences out of 15000+600000
- 516703 words of font info for 71 fonts, out of 8000000 for 9000
+ 56960 multiletter control sequences out of 15000+600000
+ 516711 words of font info for 72 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  99i,12n,99p,676b,801s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on zrm-hw1.pdf (4 pages).
+Output written on zrm-hw1.pdf (5 pages).
