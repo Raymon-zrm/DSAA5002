@@ -4,7 +4,7 @@
 \usepackage{lipsum} % Required for generating dummy text
 \usepackage{tikz}
 \usepackage{caption}
-\usetikzlibrary{positioning}
+\usetikzlibrary{trees,matrix,arrows,positioning}
 
 \setlength{\parindent}{0pt}
 
@@ -600,7 +600,186 @@ Please write down how to adapt algorithm FP-growth and illustrate the adapted al
 
 \paragraph*{(b)}
 
-\paragraph*{(c)}
+\paragraph*{(c)} We can prove that:
+
+\begin{itemize}
+  \item If $X$ is a closed frequent itemset, thus the FP-conditional tree for $X$ would be empty.
+\end{itemize}
+
+Because if 
+
+Firstly, deduce the ordered frequent items.
+
+\begin{tikzpicture}[node distance = 5cm, auto]
+  % Define block styles
+  \tikzstyle{block} = [rectangle, fill=none,
+                      text centered, rounded corners, minimum height=4em]
+  \tikzstyle{line} = [draw, -latex']
+
+    % Place nodes
+    \node [block, label=above:{transaction database}] (DB) {
+      \begin{tabular}{|c|c|}
+        \hline
+          \rowcolor{Gray} % Set the color of the first row to gray
+          TID & transactions \\
+          \hline
+          T100 & \{C, D\} \\
+          \hline
+          T200 & \{A, B\} \\
+          \hline
+          T300 & \{C, D\} \\
+          \hline
+          T400 & \{A, C, D\} \\
+          \hline
+          T500 & \{A\} \\
+          \hline
+          T600 & \{D\} \\
+          \hline
+      \end{tabular}
+    };
+
+    \node [block, right of=DB, label=above:{item\&frequency}] (item) {
+      \begin{tabular}{|c|c|}
+        \hline
+          \rowcolor{Gray} % Set the color of the first row to gray
+          Item  & frequency \\
+          \hline
+          A & 3 \\
+          \hline
+          \cellcolor{red} B & \cellcolor{red} 1 \\
+          \hline
+          C & 3 \\
+          \hline
+          D & 4 \\
+          \hline
+      \end{tabular}
+    };
+
+    \node [block, right of=item, label=above:{ordered frequency}] (oitem) {
+      \begin{tabular}{|c|c|}
+        \hline
+          \rowcolor{Gray} % Set the color of the first row to gray
+          Item  & frequency \\
+          \hline
+          D & 4 \\
+          \hline
+          A & 3 \\
+          \hline
+          C & 3 \\
+          \hline
+      \end{tabular}
+    };
+
+    \node [block, below of=DB, label=below:{ordered transaction database}] (oDB) {
+      \begin{tabular}{|c|c|c|}
+        \hline
+          \rowcolor{Gray} % Set the color of the first row to gray
+          TID & transactions & ordered transactions\\
+          \hline
+          T100 & \{C, D\} & \{D, C\}\\
+          \hline
+          T200 & \{A, B\} & \{A\} \\
+          \hline
+          T300 & \{C, D\} & \{D, C\} \\
+          \hline
+          T400 & \{A, C, D\} & \{D, A, C\} \\
+          \hline
+          T500 & \{A\} & \{A\} \\
+          \hline
+          T600 & \{D\} & \{D\} \\
+          \hline
+      \end{tabular}
+    };
+
+  \path [line] (DB) -- (item);
+  \path [line] (item) -- (oitem);
+  \path [line] (oitem) -- (oDB);
+  \path [line] (DB) -- (oDB);
+\end{tikzpicture}
+
+Then we construct the FP-tree from the above data.
+
+\begin{tikzpicture}[  
+  level 1/.style={sibling distance=3cm},
+  level 2/.style={sibling distance=1cm}, 
+  edge from parent/.style={->,draw},
+  >=latex]
+    % root of the tree
+    \node [below of=oDB] {Root}
+    % child 1
+      child {node {D (4)}
+        child {node (C1) {C (2)}}
+        child {node (A1) {A (1)}
+          child {node (C2) {C (1)}}
+        }
+      }
+    % child 2
+      child {node (A2) {A (2)}};
+
+    \draw [dashed] (C1) -- (C2);
+    \draw [dashed] (A1) -- (A2);
+\end{tikzpicture}
+
+From the FP-tree above, construct the FP-conditional tree for C, A and D.
+
+\begin{tikzpicture}[node distance = 5cm, auto]
+  % Define block styles
+  \tikzstyle{block} = [rectangle, fill=none,
+                      text centered, rounded corners, minimum height=4em]
+  \tikzstyle{line} = [draw, -latex']
+
+    % Place nodes
+    \node [block] (FPC) {
+    \{(D:2, C:2), 
+      (D:1, A:1, C:1)\}
+    };
+
+    \node [block, below=-0.5cm of FPC, label=below:{Cond. FP-tree on "C"}] (PC) {
+      \begin{tabular}{|c|c|}
+        \hline
+          \rowcolor{Gray} % Set the color of the first row to gray
+          Item & Frequency \\
+          \hline
+          D & \ 3 \\
+          \hline
+          A & \ 1 \\
+          \hline
+          C & \ 3 \\
+          \hline
+      \end{tabular}
+    };
+
+\end{tikzpicture}
+
+% Create the table using tabular
+\begin{table}
+    \begin{tabular}{|c|c|}
+        \hline
+        Cell 1 & Cell 2 \\
+        \hline
+        Cell 3 & \tikz[remember picture] \node[anchor=base] (cell4) {Cell 4}; \\
+        \hline
+    \end{tabular}
+\end{table}
+
+% Create the FP-tree using tikz
+\begin{figure}
+    \begin{tikzpicture}[>=stealth, remember picture]
+        % Place the tree
+        \node (root) {Root};
+        \node[below left=of root] (leftChild) {Left};
+        \node[below right=of root] (rightChild) {Right};
+        
+        % Draw the tree edges
+        \draw[->] (root) -- (leftChild);
+        \draw[->] (root) -- (rightChild);
+    \end{tikzpicture}
+\end{figure}
+
+% Draw the arrow from the table cell to the tree node
+\begin{tikzpicture}[overlay, remember picture]
+    \draw[->, thick] (cell4) to [out=-90,in=90] (root);
+\end{tikzpicture}
 
 \section*{Q4 [35 Marks]}
 
@@ -627,7 +806,7 @@ The sequence database of a Music Platform is shown in following table:
 
 Please answer the following questions:
 
-(a) Make the first pass over the sequence database to yield all the 1-element \textbf{frequent} sequences and What is the corresponding support? \textbf{5 Marks}
+(a) Make the first pass over the sequence database to yield all the 1-element \textbf{frequent} sequences and what is the corresponding support? \textbf{5 Marks}
 
 (b) Based on (a), do the 2-sequences Candidate Generation and Candidate Pruning. \textbf{10 Marks}
 
@@ -642,5 +821,171 @@ Please calculate the support. \textbf{5 Marks}
 \textbf{Remember: For frequent k-sequences, the support >= min-support}
 
 \subsection*{Solution}
+
+For easier reading, we denote 'Upload Songs', 'Add Tags', 'Share', 'Listen' and 'Comment' by U, A, S, L and C respectively.
+And if there are 2 items in 1 set, we have arranged it in alphabetical order by the first letter.
+Thus we have:
+
+\begin{tikzpicture}[node distance = 9cm, auto]
+  % Define block styles
+  \tikzstyle{block} = [rectangle, fill=none,
+                      text centered, rounded corners, minimum height=4em]
+  \tikzstyle{line} = [draw, -latex']
+
+    % Place nodes
+    \node [block] (DB) {
+      \begin{tabular}{|c|c|}
+        \hline
+          \rowcolor{Gray} % Set the color of the first row to gray
+          Object & Sequence \\
+          \hline
+          A & <\{'Upload Songs', 'Add Tags'\}> \\
+          \hline
+          B & <\{'Upload Songs', 'Share'\}> \\
+          \hline
+          C & <\{'Upload Songs'\}, \{'Share', 'Listen'\}> \\
+          \hline
+          D & <\{'Upload Songs'\}, \{'Upload Songs', 'Add Tags'\}, \{'Listen'\}> \\
+          \hline
+          E & <\{'Listen'\}, \{'Add Tags', 'Comment'\}, \{'Share', 'Listen'\}> \\
+          \hline
+      \end{tabular}
+    };
+
+    \node [block, right of=DB] (tDB) {
+        \begin{tabular}{|c|c|}
+          \hline
+            \rowcolor{Gray} % Set the color of the first row to gray
+            Object & Sequence \\
+            \hline
+            A & <\{A, U\}> \\
+            \hline
+            B & <\{S, U\}> \\
+            \hline
+            C & <\{U\}, \{L, S\}> \\
+            \hline
+            D & <\{U\}, \{A, U\}, \{L\}> \\
+            \hline
+            E & <\{L\}, \{A, C\}, \{L, S\}> \\
+            \hline
+        \end{tabular}
+    };
+
+    \path [line] (DB) -- (tDB);
+\end{tikzpicture}
+
+\paragraph*{(a)} Candidate 1-sequences are:
+
+<\{A\}>, <\{C\}>, <\{L\}>, <\{S\}>, <\{U\}>
+
+According to the database above, we have:
+
+\begin{tikzpicture}[node distance = 7cm, auto]
+  % Define block styles
+  \tikzstyle{block} = [rectangle, fill=none,
+                      text centered, rounded corners, minimum height=4em]
+  \tikzstyle{line} = [draw, -latex']
+
+    % Place nodes
+    \node [block] (C1) {
+      \begin{tabular}{|c|c|}
+        \hline
+          \rowcolor{Gray} % Set the color of the first row to gray
+          Sequence & Sup \\
+          \hline
+          <\{A\}> & 60\% \\
+          \hline
+          \cellcolor{red}<\{C\}> & \cellcolor{red}20\% \\
+          \hline
+          <\{L\}> & 60\% \\
+          \hline
+          <\{S\}> & 60\% \\
+          \hline
+          <\{U\}> & 80\% \\
+          \hline
+      \end{tabular}
+    };
+
+    \node [block, right of=C1] (L1) {
+        \begin{tabular}{|c|c|}
+          \hline
+            \rowcolor{Gray} % Set the color of the first row to gray
+            Sequence & Sup \\
+            \hline
+            <\{A\}> & 60\% \\
+            \hline
+            <\{L\}> & 60\% \\
+            \hline
+            <\{S\}> & 60\% \\
+            \hline
+            <\{U\}> & 80\% \\
+            \hline
+        \end{tabular}
+    };
+
+    \path [line] (C1) -- (L1) node [midway, above] {disgard sup<40\%};
+\end{tikzpicture}
+
+The 1-element frequent sequences and the corresponding support are:
+
+<\{'Add Tags'\}> (support=60\%)
+
+<\{'Listen'\}> (support=60\%)
+
+<\{'Share'\}> (support=60\%)
+
+<\{'Upload Songs'\}> (support=80\%)
+
+\paragraph*{(b)}
+
+Base case $(k=2)$: Merging two frequent 1-sequences <\{$i_1$\}> and <\{$i_2$\}> will produce two candidate 2-sequences: <\{$i_1$\} \{$i_2$\}> and <\{$i_1 , i_2$\}>
+
+Candidate 2-sequences are:
+
+<\{A, L\}>, <\{A, S\}>, <\{A, U\}>, <\{L, S\}>, <\{L, U\}>, <\{S, U\}>,
+
+<\{A\}, \{A\}>, <\{A\}, \{L\}>, <\{A\}, \{S\}>, <\{A\}, \{U\}>, 
+
+<\{L\}, \{A\}>, <\{L\}, \{L\}>, <\{L\}, \{S\}>, <\{L\}, \{U\}>, 
+
+<\{S\}, \{A\}>, <\{S\}, \{L\}>, <\{S\}, \{S\}>, <\{S\}, \{U\}>, 
+
+<\{U\}, \{A\}>, <\{U\}, \{L\}>, <\{U\}, \{S\}>, <\{U\}, \{U\}>
+
+All the 1-sequences we generate 2-sequences from are frequent. So after candidate prunning, the 2-sequences should remain the same.
+
+\paragraph*{(c)}
+
+After candidate elimination, frequent 2-sequences are:
+
+<\{A, U\}> (support=40\%),
+
+<\{L, S\}> (support=40\%),
+
+<\{A\}, \{L\}> (support=40\%),
+
+<\{U\}, \{L\}> (support=40\%)
+
+\paragraph*{(d)}
+
+Generate 3-sequences from the remaining 2-sequences, 3-sequences are:
+
+<\{A, U\}, \{L\}> (generate from <\{A, U\}> and <\{U\}, \{L\}> or from <\{A, U\}> and <\{A\}, \{L\}> ),
+
+<\{A\}, \{L, S\}> (generate from <\{A\}, \{L\}> and <\{L, S\}),
+
+<\{U\}, \{L, S\}> (generate from <\{U\}, \{L\}> and <\{L, S\})
+
+Pruning:
+
+<\{A\}, \{L, S\}> should be pruned because one 2-subsequence <\{A\}, \{S\}> is not frequent.
+
+<\{U\}, \{L, S\}> should be pruned because one 2-subsequence <\{U\}, \{S\}> is not frequent.
+
+\paragraph*{(e)}
+
+<\{A, U\}, \{L\}> (support=20\% < 40\%, should be eliminated)
+
+Thus, there is no frequent 3-sequence.
 
 \end{document}

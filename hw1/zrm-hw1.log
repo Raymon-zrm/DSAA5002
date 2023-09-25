@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.9.21)  24 SEP 2023 23:22
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.9.21)  26 SEP 2023 01:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -932,7 +932,16 @@ Package: lipsum 2021-09-20 v2.7 150 paragraphs of Lorem Ipsum dummy text
 \g__lipsum_par_int=\count490
 \l__lipsum_a_int=\count491
 \l__lipsum_b_int=\count492
- (/usr/local/texlive/2023/texmf-dist/tex/latex/lipsum/lipsum.ltd.tex)) (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypositioning.code.tex
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/lipsum/lipsum.ltd.tex)) (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytrees.code.tex
+File: tikzlibrarytrees.code.tex 2023-01-15 v3.1.10 (3.1.10)
+) (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarymatrix.code.tex
+File: tikzlibrarymatrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
+) (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryarrows.code.tex
+File: tikzlibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
+ (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.code.tex
+File: pgflibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\arrowsize=\dimen310
+)) (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypositioning.code.tex
 File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ) (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.code.tex
 File: tikzlibraryshapes.code.tex 2023-01-15 v3.1.10 (3.1.10)
@@ -976,12 +985,7 @@ File: pgflibraryshapes.multipart.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \pgfnodepartsevenbox=\box89
 \pgfnodepartsixbox=\box90
 \pgfnodepartfivebox=\box91
-))) (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryarrows.code.tex
-File: tikzlibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
- (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.code.tex
-File: pgflibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\arrowsize=\dimen310
-))
+)))
 \@quotelevel=\count493
 \@quotereset=\count494
  (./zrm-hw1.aux)
@@ -1095,7 +1099,12 @@ LaTeX Font Info:    Font shape `TU/texgyretermes(0)/m/n' will be
  [2] [3]
 LaTeX Font Info:    Font shape `TU/texgyretermes(0)/b/n' will be
 (Font)              scaled to size 10.0pt on input line 485.
- [4] [5] (./zrm-hw1.aux)
+ [4] [5] [6]
+Overfull \hbox (34.13785pt too wide) in paragraph at lines 875--876
+[][] 
+ []
+
+[7] [8] (./zrm-hw1.aux)
 Package rerunfilecheck Info: File `zrm-hw1.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 Package logreq Info: Writing requests to 'zrm-hw1.run.xml'.
@@ -1103,12 +1112,12 @@ Package logreq Info: Writing requests to 'zrm-hw1.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 37323 strings out of 476683
- 781449 string characters out of 5804047
+ 37576 strings out of 476683
+ 787744 string characters out of 5804047
  1878018 words of memory out of 5000000
- 56975 multiletter control sequences out of 15000+600000
+ 57222 multiletter control sequences out of 15000+600000
  516711 words of font info for 72 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 99i,12n,99p,676b,801s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,14n,99p,676b,1162s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on zrm-hw1.pdf (5 pages).
+Output written on zrm-hw1.pdf (8 pages).
