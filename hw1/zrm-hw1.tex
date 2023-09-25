@@ -25,7 +25,7 @@
 % logo
 %\centerline{\includegraphics[width=0.2\textwidth]{logo-blue}}
 
-\section{Q1 [15 Marks]}
+\section*{Q1 [15 Marks]}
 
 Given the transaction database below,set the minimum support count to 2 and the minimum confidence level to 60\% to find the strong association rule.
 Generate the set $C_3$ of the candidate 3-itemset, using prunning on Apriori principle.
@@ -196,7 +196,7 @@ Generate the set $C_3$ of the candidate 3-itemset, using prunning on Apriori pri
 
 Thus we get the candidate  3-itemset $C_3$.
 
-\section{Q2 [15 Marks]}
+\section*{Q2 [15 Marks]}
 
 Reducing the transactions using dynamic hashing and prunning(DHP) algorithm.
 Set the minimum support count to 2.
@@ -428,7 +428,7 @@ it must occur in at least k candidate k-itemsets.
 
 Thus we have reduced the transactions.
 
-\section{Q3 [35 Marks]}
+\section*{Q3 [35 Marks]}
 
 An itemset $X$ is said to be a frequent itemset if the frequency count of $X$ is at least a given support threshold.
 
@@ -436,7 +436,7 @@ An itemset $Y$ is a proper super-itemset of $X$ if $X \subset Y$ and $X \neq Y$.
 
 An itemset $X$ is said to be a closed frequent itemset 
 if (1) $X$ is frequent 
-and (2) there exists no proper super itemset $Y$ of $X$ such that $Y$ is frequent 
+and (2) there exists no proper super-itemset $Y$ of $X$ such that $Y$ is frequent 
 and $Y$ has the same frequency count as $X$.
 
 An itemset $X$ is said to be a maximal frequent itemset
@@ -447,8 +447,8 @@ Let $F_c$ be the set of (traditional) frequent itemsets each of which is associa
 
 For example, if there are three frequent itemsets, \{$I_1$\} with frequency 4,
 \{$I_2$\} with frequency 5, and \{$I_1, I_2$\} with frequency 3,
-F=\{\{$I_1$\}, \{$I_2$\}, \{$I_2, I_2$\}\}
-and $F_c$ = \{<\{$I_1$\}, 4>, <\{$I_2$\}, 5>, <\{$I_1, I_2$\}, 3>\}.
+$F$=\{\{$I_1$\}, \{$I_2$\}, \{$I_2, I_2$\}\}
+and $F_c = \{<\{I_1\}, 4>, <\{I_2\}, 5>, <\{I_1, I_2\}, 3>\}$.
 
 Similarly, let $C$ be the set of closed frequent itemsets without specifying the frequency of itemsets.
 
@@ -486,16 +486,126 @@ Suppose that the support threshold is 2.
 
 (b) (i) What is the advantages and the disadvantages of using closed frequent itemsets compared with traditional frequent itemsets? \textbf{(5 Marks)}
 
-(ii) What are the advantages and the disadvantages of using frequent itemsets compared with maximal frequent itemsets? \textbf{(5 Marks)}
+(ii) What are the advantages and the disadvantages of using closed frequent itemsets compared with maximal frequent itemsets? \textbf{(5 Marks)}
 
 (c) Please adapt algorithm FP-growth with the use of the FP-tree to find all closed frequent item set.
 Please write down how to adapt algorithm FP-growth and illustrate the adapted algorithm with the above example. \textbf{(20 Marks)}
 
 \subsection*{Solution}
 
-\section{Q4 [35 Marks]}
+\paragraph*{(a)} According to the topic, we have the following transaction database. And we generate all the $k$-itemsets which might be frequent itemsets.
+
+\begin{tikzpicture}[node distance = 5cm, auto]
+  % Define block styles
+  \tikzstyle{block} = [rectangle, fill=none,
+                      text centered, rounded corners, minimum height=4em]
+  \tikzstyle{line} = [draw, -latex']
+
+  % Place nodes
+  \node [block, label=below:{transaction database}] (DB) {
+    \begin{tabular}{|c|c|}
+      \hline
+        \rowcolor{Gray} % Set the color of the first row to gray
+        TID & transactions \\
+        \hline
+        T100 & \{C, D\} \\
+        \hline
+        T200 & \{A, B\} \\
+        \hline
+        T300 & \{C, D\} \\
+        \hline
+        T400 & \{A, C, D\} \\
+        \hline
+        T500 & \{A\} \\
+        \hline
+        T600 & \{D\} \\
+        \hline
+    \end{tabular}
+  };
+
+  \node [block, right of=DB, label=below:{$L_1$}] (L1) {
+    \begin{tabular}{|c|c|}
+      \hline
+      \rowcolor{Gray} % Set the color of the first row to gray
+      Itemset & sup  \\
+      \hline
+      \{A\} & 3 \\
+      \hline
+      \cellcolor{red} \{B\} & \cellcolor{red} 1 \\
+      \hline
+      \{C\} & 3  \\
+      \hline
+      \{D\} & 4 \\
+      \hline
+    \end{tabular}
+  };
+
+  \node [block, right of=L1, label=below:{$C_1$}] (C1) {
+    \begin{tabular}{|c|c|}
+      \hline
+        \rowcolor{Gray} % Set the color of the first row to gray
+        Itemset & sup \\
+        \hline
+        \{A\} & 3 \\
+        \hline
+        \{C\} & 3 \\
+        \hline
+        \{D\} & 4 \\
+        \hline
+    \end{tabular}
+  };
+
+  \node[left=of C1, xshift = 9cm] {$k$=1};
+
+  \node [block, below of=L1, label=below:{$L_2$}] (L2) {
+    \begin{tabular}{|c|c|}
+      \hline
+        \rowcolor{Gray} % Set the color of the first row to gray
+        Itemset & sup \\
+        \hline
+        \cellcolor{red} \{A, C\} & \cellcolor{red} 1 \\
+        \hline
+        \cellcolor{red} \{A, D\} & \cellcolor{red} 1 \\
+        \hline
+        \{C, D\} & 3 \\
+        \hline
+    \end{tabular}
+  };
+
+  \node [block, right of=L2, label=below:{$C_2$}] (C2) {
+    \begin{tabular}{|c|c|}
+      \hline
+        \rowcolor{Gray} % Set the color of the first row to gray
+        Itemset & sup \\
+        \hline
+        \{C, D\} & 3 \\
+        \hline
+    \end{tabular}
+  };
+
+  \node[left=of C2, xshift = 9cm] {$k$=2};
+
+  % Draw edges
+  \path [line] (DB) -- (L1);
+  \path [line] (L1) -- (C1) node [midway, above] {disgard sup<2};
+  \path [line] (C1) -- (L2) node [midway, above] {};
+  \path [line] (L2) -- (C2) node [midway, above] {disgard sup<2};
+\end{tikzpicture}
+
+\textbf{i}: We have $F_c = \{ <\{A\},3>, <\{C\},3>, <\{D\},4>, <\{C, D\},3>\}$
+
+\textbf{ii}: We have $C_c = \{ <\{A\},3>, <\{C, D\},3>\}$
+
+\textbf{iii}: We have $M_c = \{ <\{A\},3>, <\{C, D\},3>\}$
+
+\paragraph*{(b)}
+
+\paragraph*{(c)}
+
+\section*{Q4 [35 Marks]}
 
 A GSP example: Suppose now we have 5 events: 'Upload Songs', 'Add Tags', 'Share', 'Listen' and 'Comment'.
+Let min-support be 40\%.
 The sequence database of a Music Platform is shown in following table:
 
 \begin{tabular}{|c|c|}
