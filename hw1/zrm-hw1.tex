@@ -313,6 +313,8 @@ Thus we have the hash table below:
     \hline
 \end{tabular}
 
+\newpage
+
 Let $L_1$*$L_1$ to generate a 2-itemset table, and choose the itemsets where the number of content in its bucket is above the minimum support.
 
 \begin{tikzpicture}[node distance = 5.5cm, auto]
@@ -458,6 +460,8 @@ Let $M$ be the set of maximal frequent itemsets without specifying the frequency
 
 Ler $M_c$ be the set of maximal frequent itemsets each of which is associated with a frequency in the dataset.
 
+\newpage
+
 The following shows six transactions with four items.
 Each row corresponds to a transaction where 1 corresponds to a presence of an item and 0 corresponds to an absence.
 
@@ -594,21 +598,27 @@ Please write down how to adapt algorithm FP-growth and illustrate the adapted al
 
 \textbf{i}: We have $F_c = \{ <\{A\},3>, <\{C\},3>, <\{D\},4>, <\{C, D\},3>\}$
 
-\textbf{ii}: We have $C_c = \{ <\{A\},3>, <\{C, D\},3>\}$
+\textbf{ii}: We have $C_c = \{ <\{A\},3>, <\{D\},4>, <\{C, D\},3>\}$
 
 \textbf{iii}: We have $M_c = \{ <\{A\},3>, <\{C, D\},3>\}$
 
-\paragraph*{(b)}
-
-\paragraph*{(c)} We can prove that:
+\paragraph*{(b)} \textbf{i:}
 
 \begin{itemize}
-  \item If $X$ is a closed frequent itemset, thus the FP-conditional tree for $X$ would be empty.
+  \item Advantages: Compared with traditional frequent itemsets, inclosed itemsets are eliminated, which reduces the number of itemsets. And because a lot of frequent itemsets can be considered as subsets of a closed super-itemset, it does not lose much information.
+  \item Disadvantages: Finding frequent closed itemsets need more computation, increasing the time complexity.
 \end{itemize}
 
-Because if 
+\textbf{ii:}
 
-Firstly, deduce the ordered frequent items.
+\begin{itemize}
+  \item Advantages: Closed itemsets do not lose much information because the closed super-itemsets have same frequency as the sub-itemsets. But maximal frequent itemsets may lose some information.
+  \item Disadvantages: Maximal frequent itemsets are more efficient than closed itemsets, because it does not need to check the frequency of the super-itemsets.
+\end{itemize}
+
+\paragraph*{(c)} 
+
+Generate a FP-tree. Firstly, deduce the ordered frequent items.
 
 \begin{tikzpicture}[node distance = 5cm, auto]
   % Define block styles
@@ -697,30 +707,61 @@ Firstly, deduce the ordered frequent items.
   \path [line] (DB) -- (oDB);
 \end{tikzpicture}
 
+\newpage
+
 Then we construct the FP-tree from the above data.
 
-\begin{tikzpicture}[  
+\begin{tikzpicture}[
   level 1/.style={sibling distance=3cm},
   level 2/.style={sibling distance=1cm}, 
   edge from parent/.style={->,draw},
-  >=latex]
-    % root of the tree
-    \node [below of=oDB] {Root}
-    % child 1
-      child {node {D (4)}
-        child {node (C1) {C (2)}}
-        child {node (A1) {A (1)}
-          child {node (C2) {C (1)}}
-        }
-      }
-    % child 2
-      child {node (A2) {A (2)}};
+  >=latex,
+  >=stealth, remember picture]
+  % Place the table using tabular inside a node
+  \node (table) {
+      \begin{tabular}{|c|c|}
+        \hline
+          \rowcolor{Gray} % Set the color of the first row to gray
+          Item & Head of node-link \\
+          \hline
+          D & \tikz \node[inner sep=0pt] (celld) {}; \\
+          \hline
+          A & \tikz \node[inner sep=0pt] (cella) {}; \\
+          \hline
+          C & \tikz \node[inner sep=0pt] (cellc) {}; \\
+          \hline
+      \end{tabular}
+  };
 
-    \draw [dashed] (C1) -- (C2);
-    \draw [dashed] (A1) -- (A2);
+  % root of the tree
+  \node [right=3cm of table, yshift = 1cm] {Root}
+  % child 1
+    child {node (D) {D (4)}
+      child {node (C1) {C (2)}}
+      child {node (A1) {A (1)}
+        child {node (C2) {C (1)}}
+      }
+    }
+  % child 2
+    child {node (A2) {A (2)}};
+
+  \draw [dashed, ->] (C1) -- (C2);
+  \draw [dashed, ->] (A1) -- (A2);
+
+  % Draw the arrow from the table cell to the tree node
+  \draw[->] (celld) -- (D);
+  \draw[->] (cella) -- (A1);
+  \draw[->] (cellc) -- (C1);
 \end{tikzpicture}
 
-From the FP-tree above, construct the FP-conditional tree for C, A and D.
+Notice that if $X$ is a frequent itemset but not closed, then there exists a super-itemset $Y$ of $X$ such that $Y$ is frequent and $Y$ has the same frequency count as $X$.
+Let $Z = Y - X$, ($Z$ is not empty), the for every path lying $X$, $Z$ must lie in the path, too.
+
+So when we construct the FP-conditional tree for a item, we could check if there exists a common item in all the paths, if not, the item is a closed frequent itemset.
+
+Construct the FP-conditional tree for $C, A, D$.
+
+\textbf{for $C$}
 
 \begin{tikzpicture}[node distance = 5cm, auto]
   % Define block styles
@@ -729,57 +770,110 @@ From the FP-tree above, construct the FP-conditional tree for C, A and D.
   \tikzstyle{line} = [draw, -latex']
 
     % Place nodes
-    \node [block] (FPC) {
-    \{(D:2, C:2), 
-      (D:1, A:1, C:1)\}
-    };
-
-    \node [block, below=-0.5cm of FPC, label=below:{Cond. FP-tree on "C"}] (PC) {
+    \node [block] (cFPC) {
       \begin{tabular}{|c|c|}
         \hline
           \rowcolor{Gray} % Set the color of the first row to gray
-          Item & Frequency \\
+          Cond. FP-tree on "C" \\
           \hline
-          D & \ 3 \\
-          \hline
-          A & \ 1 \\
-          \hline
-          C & \ 3 \\
+          \{(D:2, C:2), \\
+          (D:1, A:1, C:1)\} \\
           \hline
       \end{tabular}
     };
 
+    \node [block, right of=cFPC] (cPC) {
+      \begin{tabular}{|c|c|}
+        \hline
+          \rowcolor{Gray} % Set the color of the first row to gray
+          Cond. FP-tree on "C" \\
+          \hline
+          \{(D:2, C:2), \\
+          (D:1, C:1)\} \\
+          \hline
+      \end{tabular}
+    };
+
+  \path [line] (cFPC) -- (cPC);
 \end{tikzpicture}
 
-% Create the table using tabular
-\begin{table}
-    \begin{tabular}{|c|c|}
-        \hline
-        Cell 1 & Cell 2 \\
-        \hline
-        Cell 3 & \tikz[remember picture] \node[anchor=base] (cell4) {Cell 4}; \\
-        \hline
-    \end{tabular}
-\end{table}
+Because for every path lying $C$, $D$ also lies in the path, so $C$ is not a closed frequent itemset. 
+But $\{D, C\}$ is a closed frequent itemset.
 
-% Create the FP-tree using tikz
-\begin{figure}
-    \begin{tikzpicture}[>=stealth, remember picture]
-        % Place the tree
-        \node (root) {Root};
-        \node[below left=of root] (leftChild) {Left};
-        \node[below right=of root] (rightChild) {Right};
-        
-        % Draw the tree edges
-        \draw[->] (root) -- (leftChild);
-        \draw[->] (root) -- (rightChild);
-    \end{tikzpicture}
-\end{figure}
+\textbf{for $A$}
 
-% Draw the arrow from the table cell to the tree node
-\begin{tikzpicture}[overlay, remember picture]
-    \draw[->, thick] (cell4) to [out=-90,in=90] (root);
+\begin{tikzpicture}[node distance = 5cm, auto]
+  % Define block styles
+  \tikzstyle{block} = [rectangle, fill=none,
+                      text centered, rounded corners, minimum height=4em]
+  \tikzstyle{line} = [draw, -latex']
+
+    % Place nodes
+    \node [block] (cFPA) {
+      \begin{tabular}{|c|c|}
+        \hline
+          \rowcolor{Gray} % Set the color of the first row to gray
+          Cond. FP-tree on "A" \\
+          \hline
+          \{(D:1, A:1), \\
+          (A:2)\} \\
+          \hline
+      \end{tabular}
+    };
+
+    \node [block, right of=cFPC] (cPA) {
+      \begin{tabular}{|c|c|}
+        \hline
+          \rowcolor{Gray} % Set the color of the first row to gray
+          Cond. FP-tree on "A" \\
+          \hline
+          \{(A:2), \\
+          \hline
+      \end{tabular}
+    };
+
+  \path [line] (cFPA) -- (cPA);
 \end{tikzpicture}
+
+Because there is no other itemsets lies in the right path lying $A$, so $A$ is a closed frequent itemset.
+
+\textbf{for $D$}
+
+\begin{tikzpicture}[node distance = 5cm, auto]
+  % Define block styles
+  \tikzstyle{block} = [rectangle, fill=none,
+                      text centered, rounded corners, minimum height=4em]
+  \tikzstyle{line} = [draw, -latex']
+
+    % Place nodes
+    \node [block] (cFPD) {
+      \begin{tabular}{|c|c|}
+        \hline
+          \rowcolor{Gray} % Set the color of the first row to gray
+          Cond. FP-tree on "D" \\
+          \hline
+          \{(D:4)\} \\
+          \hline
+      \end{tabular}
+    };
+
+    \node [block, right of=cFPC] (cPD) {
+      \begin{tabular}{|c|c|}
+        \hline
+          \rowcolor{Gray} % Set the color of the first row to gray
+          Cond. FP-tree on "D" \\
+          \hline
+          \{(D:4), \\
+          \hline
+      \end{tabular}
+    };
+
+  \path [line] (cFPD) -- (cPD);
+\end{tikzpicture}
+
+Because there is a path only lying $D$, so $D$ is a closed frequent itemset.
+
+Thus we have $C_c = \{ <\{D, C\},3>, <\{A\},3>, <\{D\},4>\}$. 
 
 \section*{Q4 [35 Marks]}
 
