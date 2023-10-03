@@ -746,11 +746,11 @@ Then we construct the FP-tree from the above data.
     child {node (A2) {A (2)}};
 
   \draw [dashed, ->] (C1) -- (C2);
-  \draw [dashed, ->] (A1) -- (A2);
+  \draw [dashed, ->] (A2) -- (A1);
 
   % Draw the arrow from the table cell to the tree node
   \draw[->] (celld) -- (D);
-  \draw[->] (cella) -- (A1);
+  \draw[->] (cella) -- (A2);
   \draw[->] (cellc) -- (C1);
 \end{tikzpicture}
 
@@ -827,7 +827,7 @@ But $\{D, C\}$ is a closed frequent itemset.
           \rowcolor{Gray} % Set the color of the first row to gray
           Cond. FP-tree on "A" \\
           \hline
-          \{(A:2), \\
+          \{(A:3),\} \\
           \hline
       \end{tabular}
     };
@@ -863,7 +863,7 @@ Because there is no other itemsets lies in the right path lying $A$, so $A$ is a
           \rowcolor{Gray} % Set the color of the first row to gray
           Cond. FP-tree on "D" \\
           \hline
-          \{(D:4), \\
+          \{(D:4),\}\\
           \hline
       \end{tabular}
     };
