@@ -1,13 +1,13 @@
 # Fdb version 4
-["biber zrm-hw1"] 1696243511 "zrm-hw1.bcf" "zrm-hw1.bbl" "zrm-hw1" 1696331482 0
+["biber zrm-hw1"] 1696243511 "zrm-hw1.bcf" "zrm-hw1.bbl" "zrm-hw1" 1696331946 0
   "reference.bib" 0 -1 0 ""
-  "zrm-hw1.bcf" 1696331482 107548 26b6e07fde39ff704ebe9e74ebee1bb2 "lualatex"
+  "zrm-hw1.bcf" 1696331946 107548 26b6e07fde39ff704ebe9e74ebee1bb2 "lualatex"
   (generated)
   "zrm-hw1.bbl"
   "zrm-hw1.blg"
   (rewritten before read)
-["lualatex"] 1696331480 "/Users/raymon/DSAA5002/hw1/zrm-hw1.tex" "zrm-hw1.pdf" "zrm-hw1" 1696331482 0
-  "/Users/raymon/DSAA5002/hw1/zrm-hw1.tex" 1696331462 31098 d3e0b3f6343f8f37062998b48cf47676 ""
+["lualatex"] 1696331944 "/Users/raymon/DSAA5002/hw1/zrm-hw1.tex" "zrm-hw1.pdf" "zrm-hw1" 1696331946 0
+  "/Users/raymon/DSAA5002/hw1/zrm-hw1.tex" 1696331940 30668 46890bdf6e2302a824dc0d5463e3cfd7 ""
   "/Users/raymon/Library/texlive/2023/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-bold.luc" 1696091028 128410 e8b61c2a5e330cd0816cabbb13af398a ""
   "/Users/raymon/Library/texlive/2023/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-regular.luc" 1696091027 127327 0c22a2c7faa4e80fd8c3443dc8dd3208 ""
   "/Users/raymon/Library/texlive/2023/texmf-var/luatex-cache/generic/fonts/otl/texgyretermesx-bold.luc" 1696091029 305089 5618da839b9ddfca40ee5e410f34f980 ""
@@ -295,11 +295,11 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1695267128 4623355 b8cad38412faebe1ce5b780a45db67bd ""
   "/usr/local/texlive/2023/texmf-var/web2c/luahbtex/lualatex.fmt" 1695267052 11879744 3334af46dd8d7d831109730524c91c1a ""
   "elegantnote.cls" 1695454355 14869 7c3ef8da7d09582178ee7d3da763cb96 ""
-  "zrm-hw1.aux" 1696331482 839 d258c9e58ce067e9be377ebd65ef8dff "lualatex"
+  "zrm-hw1.aux" 1696331946 839 d258c9e58ce067e9be377ebd65ef8dff "lualatex"
   "zrm-hw1.bbl" 1696243483 0 d41d8cd98f00b204e9800998ecf8427e "biber zrm-hw1"
-  "zrm-hw1.out" 1696331481 0 d41d8cd98f00b204e9800998ecf8427e "lualatex"
-  "zrm-hw1.run.xml" 1696331482 2365 e564be8c7d0b28495984dc57c119b6ee "lualatex"
-  "zrm-hw1.tex" 1696331462 31098 d3e0b3f6343f8f37062998b48cf47676 ""
+  "zrm-hw1.out" 1696331945 0 d41d8cd98f00b204e9800998ecf8427e "lualatex"
+  "zrm-hw1.run.xml" 1696331946 2365 e564be8c7d0b28495984dc57c119b6ee "lualatex"
+  "zrm-hw1.tex" 1696331940 30668 46890bdf6e2302a824dc0d5463e3cfd7 ""
   (generated)
   "zrm-hw1.aux"
   "zrm-hw1.bcf"

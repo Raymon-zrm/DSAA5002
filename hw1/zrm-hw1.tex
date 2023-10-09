@@ -754,11 +754,6 @@ Then we construct the FP-tree from the above data.
   \draw[->] (cellc) -- (C1);
 \end{tikzpicture}
 
-Notice that if $X$ is a frequent itemset but not closed, then there exists a super-itemset $Y$ of $X$ such that $Y$ is frequent and $Y$ has the same frequency count as $X$.
-Let $Z = Y - X$, ($Z$ is not empty), the for every path lying $X$, $Z$ must lie in the path, too.
-
-So when we construct the FP-conditional tree for a item, we could check if there exists a common item in all the paths, if not, the item is a closed frequent itemset.
-
 Construct the FP-conditional tree for $C, A, D$.
 
 \textbf{for $C$}
@@ -874,6 +869,8 @@ Because there is no other itemsets lies in the right path lying $A$, so $A$ is a
 Because there is a path only lying $D$, so $D$ is a closed frequent itemset.
 
 Thus we have $C_c = \{ <\{D, C\},3>, <\{A\},3>, <\{D\},4>\}$. 
+
+\newpage
 
 \section*{Q4 [35 Marks]}
 
