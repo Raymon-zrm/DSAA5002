@@ -1,0 +1,202 @@
+\section*{Q2 [30 Marks]}
+
+The table below is a small part of the Acute Inflammations Data Set.
+
+\begin{table}[H]
+    \begin{tabular}{ll}
+        a1 & Temperature of patient (35C-42C) \\
+        a2 & Occurrence of nausea (yes, no) \\
+        a3 & Lumbar pain (yes, no) \\
+        a4 & Urine pushing (continuous need for urination) (yes, no) \\
+        a5 & Micturition pains (yes, no) \\
+        a6 & Burning of urethra, itch, swelling of urethra outlet (yes, no) \\
+        d1 & Decision: Inflammation of urinary bladder (yes, no) \\
+        d2 & Decision: Nephritis of renal pelvis origin (yes, no) \\
+    \end{tabular}
+\end{table}
+
+Here the attributes a1-a6 are observations, and the decisions d1 and d2 are made by a
+medical expert. The purpose of studying this data set is to predict presumptive diagnosis
+of two disease of the urinary system, namely, “Inflammation of urinary bladder” and
+“Nephritis of renal pelvis origin".
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc|cc}
+        \hline
+        \addlinespace[-0.5ex] % 调整间距 \toprule
+        \hline
+        a1 & a2 & a3 & a4 & a5 & a6 & d1 & d2 \\
+        \hline
+        37.3 & no & yes & no & no & no & no & no \\
+        \hline
+        37.4 & no & no & yes & no & no & yes & no \\
+        \hline
+        37.5 & yes & yes & no & no & no & no & no \\
+        \hline
+        37.6 & no & no & yes & yes & yes & yes & yes \\
+        \hline
+        37.7 & no & no & yes & no & no & yes & no \\
+        \hline
+        37.7 & no & no & yes & yes & no & yes & no \\
+        \hline
+        37.7 & no & no & yes & yes & no & yes & no \\
+        \hline
+        37.8 & no & yes & no & no & no & no & no \\
+        \hline
+        37.9 & no & no & yes & yes & yes & yes & no \\
+        \hline
+        37.9 & no & no & yes & no & no & yes & no \\
+        \hline
+        38.0 & no & yes & yes & no & yes & no & yes \\
+        \hline
+        38.0 & no & yes & yes & no & yes & no & yes \\
+        \hline
+        38.1 & no & yes & yes & no & yes & yes & yes \\
+        \hline
+        38.3 & no & yes & yes & no & yes & no & yes \\
+        \hline
+        38.5 & no & yes & yes & no & yes & no & no \\
+        \hline
+        38.7 & no & yes & yes & no & yes & no & yes \\
+        \hline
+        38.9 & no & yes & yes & no & yes & yes & yes \\
+        \hline
+        39.0 & no & yes & yes & no & yes & no & yes \\
+        \hline
+        39.4 & no & yes & yes & no & yes & no & yes \\
+        \hline
+        39.5 & no & yes & yes & no & yes & no & yes \\
+        \hline
+        \addlinespace[-0.5ex] % 调整间距 \bottomrule
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{itemize}
+    \item[(a)] (10 marks) Consider the procedures of building a decision tree with Gini score. If we plan only to use the attributes a3 and a5 to predict the decision d2, which attribute should we use first?
+    \item[(b)] (20 marks) Use the naïve Bayes algorithm, the attributes a1 (with the threshold $\theta_1$ = 37.95), a2, and a3 only, to predict the decision d2 for the following data of a new patient. (For simplicity you do NOT need to use the Laplacian correction.)
+\end{itemize}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc|cc}
+        \hline
+        \addlinespace[-0.5ex] % 调整间距 \toprule
+        \hline
+        a1 & a2 & a3 & a4 & a5 & a6 & d1 & d2 \\
+        \hline
+        40.0 & yes & no & no & no & no & ? & ? \\
+        \hline
+        \addlinespace[-0.5ex] % 调整间距 \bottomrule
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection*{Solution:}
+
+\paragraph*{(a)} Because we only predict the decision d2, we have: $Info(T)=1-\frac{1}{2}^2-\frac{1}{2}^2=0.5$
+
+For attribute a3, we have:
+
+$Info(T_{yes}) = 1 - \frac{9}{13}^2 - \frac{4}{13}^2 = \frac{72}{169} \approx 0.4260$
+
+$Info(T_{no}) = 1 - \frac{1}{7}^2- \frac{6}{7}^2 = \frac{12}{49} \approx 0.2499$
+
+$Info(a3, T) = \frac{13}{20} \times \frac{72}{169} + \frac{7}{20} \times \frac{12}{49} = \frac{33}{91} \approx 0.3626$
+
+$Gain(a3, T) = 0.5 - 0.3626 = 0.1374$
+
+For attribute a5, we have:
+
+$Info(T_{yes}) = 1 - \frac{1}{4}^2 - \frac{3}{4}^2 = \frac{3}{8} = 0.3750$
+
+$Info(T_{no}) = 1 - \frac{9}{16}^2- \frac{7}{16}^2 = \frac{63}{128} \approx 0.4922$
+
+$Info(a5, T) = \frac{4}{20} \times \frac{3}{8} + \frac{16}{20} \times \frac{63}{128} = \frac{15}{32} \approx 0.4688$
+
+$Gain(a5, T) = 0.5 - 0.4688 = 0.0312$
+
+We can see $Gain(a3, T) > Gain(a5, T)$, so we should use a3 first.
+
+\paragraph*{(b)} Because we have:
+
+For attribute a1:
+
+$P(a1>\theta_1|d2=yes)=\frac{9}{10}=0.9$
+
+$P(a1<\theta_1|d2=yes)=\frac{1}{10}=0.1$
+
+$P(a1>\theta_1|d2=no)=\frac{1}{10}=0.1$
+
+$P(a1<\theta_1|d2=no)=\frac{9}{10}=0.9$
+
+For attribute a2:
+
+$P(a2=yes|d2=yes)=\frac{0}{10}=0$
+
+$P(a2=no|d2=yes)=\frac{10}{10}=1$
+
+$P(a2=yes|d2=no)=\frac{1}{10}=0.1$
+
+$P(a2=no|d2=no)=\frac{9}{10}=0.9$
+
+For attribute a3:
+
+$P(a3=yes|d2=yes)=\frac{9}{10}=0.9$
+
+$P(a3=no|d2=yes)=\frac{1}{10}=0.1$
+
+$P(a3=yes|d2=no)=\frac{4}{10}=0.4$
+
+$P(a3=no|d2=no)=\frac{6}{10}=0.6$
+
+Then we have:
+
+{
+    \setlength{\abovedisplayskip}{-10pt}
+    \setlength{\belowdisplayskip}{0pt}
+
+    \begin{flalign*}
+        P &= P(a1>\theta_1,a2=yes,a3=no) && \\
+            &= P(a1>\theta_1) \times P(a2=yes)\times P(a3=no) \\
+            &=0.00875
+    \end{flalign*}
+
+    \begin{flalign*}
+        P_1 &= P(a1>\theta_1,a2=yes,a3=no|d2=yes) && \\
+            &= P(a1>\theta_1|d2=yes) \times P(a2=yes|d2=yes)\times P(a3=no|d2=yes) \\
+            &=0.9 \times 0 \times 0.1 \\
+            &=0
+    \end{flalign*}
+
+    \begin{flalign*}
+        P_2 &= P(a1>\theta_1,a2=yes,a3=no|d2=no) && \\
+            &= P(a1>\theta_1|d2=no) \times P(a2=yes|d2=no)\times P(a3=no|d2=no) \\
+            &=0.1 \times 0.1 \times 0.6 \\
+            &=0.006
+    \end{flalign*}
+}
+
+Thus: 
+
+{
+    \setlength{\abovedisplayskip}{-10pt}
+    \setlength{\belowdisplayskip}{0pt}
+
+    \begin{flalign*}
+        &P(d2=yes|a1>\theta_1,a2=yes,a3=no) \\
+            &=\frac{P_1 \times P(d2=yes)}{P} && \\
+            &=\frac{0 \times 0.5}{0.00875} \\
+            &=0
+    \end{flalign*}
+
+    \begin{flalign*}
+        &P(d2=no|a1>\theta_1,a2=yes,a3=no) \\
+            &=\frac{P_2 \times P(d2=no)}{P} && \\
+            &=\frac{0.006 \times 0.5}{0.00875} \\
+            &=0.3429
+    \end{flalign*}
+}
+
+Hence, the decision of d2 is no.

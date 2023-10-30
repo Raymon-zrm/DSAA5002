@@ -1,0 +1,81 @@
+\section*{Q3 [15 Marks]}
+
+There is a BBN below, which comprises four Random Variables(RV).
+Each RV is a Boolean RV
+
+\begin{center}
+    \begin{tikzpicture}
+        % Define nodes
+        \node[obs] (A) {A};
+        \node[obs, right=2cm of A] (B) {B};
+        \node[obs, below left=1cm and 1cm of A] (C) {C};
+        \node[obs, right=2cm of C] (D) {D};
+        % Connect nodes
+        \edge {A} {C};
+        \edge {A,B} {D};
+    \end{tikzpicture}
+\end{center}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lll}
+        \(P(A) = 0.1\) & \(P(B) = 0.5\) & \(P(C|A) = 0.7\) \\
+        \(P(C|\lnot A) = 0.2\) & \(P(D|A, B) = 0.9\) & \(P(D|\lnot A, B) = 0.6\) \\
+        \(P(D|A, \lnot B) = 0.7\) & \(P(D|\lnot A, \lnot B) = 0.3\)
+    \end{tabular}
+\end{table}
+
+\begin{itemize}
+    \item[(a)] (7 marks) What is $P(\lnot A, B, \lnot C, D)$?
+    \item[(b)] (8 marks) What is $P(A | B, C, D)$?
+\end{itemize}
+
+\subsection*{Solution:}
+
+\paragraph*{(a)} According to the BBN above, we have:
+
+{
+    \setlength{\abovedisplayskip}{-10pt}
+    \setlength{\belowdisplayskip}{0pt}
+
+    \begin{flalign*}
+        P(\lnot A, B, \lnot C, D) &= P(B, D|\lnot A, \lnot C) \times P(\lnot A, \lnot C)&& \\
+            &= P(B, D | \lnot A) \times P(\lnot C | \lnot A) \times P(\lnot A) && \\
+            &= P(D|\lnot A B) \times P(B) \times [1 - P(C | \lnot A)] \times [1 - P(A)] && \\
+            &= 0.6 \times 0.5 \times (1-0.2) \times (1-0.1) && \\
+            &= 0.216
+    \end{flalign*}
+}
+
+\paragraph*{(b)} According to the BBN above, we have:
+
+{
+    \setlength{\abovedisplayskip}{-10pt}
+    \setlength{\belowdisplayskip}{0pt}
+
+    \begin{flalign*}
+        P(A | B, C, D) &= \frac{P(A, B, C, D)}{P(B, C, D)} && \\
+            &= \frac{P(B, D | A, C) \times P(A, C)}{P(B, C, D)} && \\
+            &= \frac{P(B, D | A) \times P(A, C)}{P(B, D) \times P(C)} && \\
+            &= \frac{P(D | A, B) \times P(B) \times [P(C | A) \times P(A)]}{[P(B, D, A) + P(B, D, \lnot A)] \times P(C)} && \\
+            &= \frac{P(D | A, B) \times P(B) \times [P(C | A) \times P(A)]}{[P(D | A, B) \times P(A, B) + P(D | \lnot A, B) \times P(\lnot A, B)] \times P(C)} && \\
+        \end{flalign*}
+}
+
+Except for \( P(C) \), all other variables are known. According to Total Probability Formula, we have:
+
+{
+    \setlength{\abovedisplayskip}{-10pt}
+    \setlength{\belowdisplayskip}{0pt}
+
+    \begin{flalign*}
+        P(C) &= P(C, A) + P(C, \lnot A) && \\
+            &= P(C | A) \times P(A) + P(C | \lnot A) \times P(\lnot A) && \\
+            &= 0.7 \times 0.1 + 0.2 \times 0.9 && \\
+            &= 0.25
+    \end{flalign*}
+}
+
+Hence:
+
+$P(A | B, C, D) = \frac{0.9 \times 0.5 \times [0.7 \times 0.1]}{[0.9 \times 0.1 \times 0.5 + 0.6 \times 0.9 \times 0.5] \times 0.25} = 0.4$

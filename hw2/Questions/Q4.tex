@@ -1,0 +1,100 @@
+\section*{Q4 [30 Marks]}
+
+Consider a simple neural network with a single hidden layer. 
+The input layer consists of three-dimensional \( \mathbf{x} = (x_1, x_2, x_3)^T \). 
+The hidden layer includes two-dimensional \( \mathbf{h} = (h_1, h_2) \). 
+The output layer includes one scalar \( o \). 
+We ignore bias terms for simplicity.
+
+We use linear rectified (ReLU) as activation function \textbf{for the hidden and output layer BOTH}.
+\begin{equation*}
+    \text{ReLU}(x) = \max(0, x)
+\end{equation*}
+\begin{equation*}
+    \text{ReLU}'(x) = 
+        \begin{cases} 
+        1, & \text{if } x > 0 \\
+        0, & \text{if } x \leq 0 
+        \end{cases}
+\end{equation*}
+
+Moreover, denote the loss function (also called error in slides) by \( \mathbf{J}(o, t) = \frac{1}{2} |o - t|^2 \).
+where \( t \) is the associated label (target) value for scalar output \( o \).
+Denote by \( W \) and \( V \) weight matrices connecting input and hidden layer, and hidden layer and output respectively.
+They are \textbf{initialized} (i.e., the initial condition before the first updating round) as follows:
+\begin{equation}
+W = \begin{bmatrix}
+1 & 0 & 1 \\
+-3 & -1 & 0 \\
+\end{bmatrix}, 
+V = \begin{bmatrix}
+0 & 1
+\end{bmatrix},
+\end{equation}
+
+Now, try to solve the following parts.
+
+\begin{itemize}
+    \item[(a)] (5 marks) Write out symbolically (thus, no need to plug in the specific values of \( W \) and \( V \) just yet) the mapping \( \mathbf{x} \rightarrow o \) using ReLU, \( W \), \( V \).
+    \item[(b)] (10 marks) Given the condition \( \mathbf{x} = (1, 2, 1)^T, t = 1 \), compute the numerical output value \( o \), clearly show all intermediate steps. You can reuse the results of the previous question.
+    \item[(c)] (15 marks) Compute the gradient of the loss function with respect to the \( V \) weights, and evaluate the gradients at specific \( \mathbf{x} = (1, 2, 1)^T, t = 1 \).
+\end{itemize}
+
+Forward Pass
+
+1. Hidden Layer Calculation: 
+
+    The output of the hidden layer can be computed as \( \mathbf{h} = \text{ReLU}(W \cdot \mathbf{x}) \).
+    
+    Given \( W = \begin{pmatrix} 1 & 0 & 1 \\ -3 & -1 & 0 \end{pmatrix} \) and \( \mathbf{x} = \begin{pmatrix} 1 \\ 2 \\ 1 \end{pmatrix} \),
+    
+    \[
+    \mathbf{h} = \text{ReLU}\left(\begin{pmatrix} 1 & 0 & 1 \\ -3 & -1 & 0 \end{pmatrix} \begin{pmatrix} 1 \\ 2 \\ 1 \end{pmatrix}\right)
+    = \text{ReLU}\left(\begin{pmatrix} 2 \\ -5 \end{pmatrix}\right)
+    = \begin{pmatrix} 2 \\ 0 \end{pmatrix}
+    \]
+
+2. Output Layer Calculation: 
+
+    The output \( o \) can be computed as \( o = \text{ReLU}(V \cdot \mathbf{h}) \).
+    
+    Given \( V = \begin{pmatrix} 0 & 1 \end{pmatrix} \) and \( \mathbf{h} = \begin{pmatrix} 2 \\ 0 \end{pmatrix} \),
+    
+    \[
+    o = \text{ReLU}\left(\begin{pmatrix} 0 & 1 \end{pmatrix} \begin{pmatrix} 2 \\ 0 \end{pmatrix}\right)
+    = \text{ReLU}(0)
+    = 0
+    \]
+
+So, the numerical output value \( o \) would be 0 given the condition \( \mathbf{x} = (1, 2, 1)^T \) and \( t = 1 \).
+
+To compute the gradient of the loss function with respect to the \( V \) weights, we first need to define the loss function and then use backpropagation to find the gradients.
+
+Loss Function:
+The given loss function is 
+\[
+J(o, t) = \frac{1}{2} |o - t|^2
+\]
+where \( o \) is the predicted output and \( t \) is the target value.
+
+Backpropagation for Computing Gradient:
+We want to find \( \frac{\partial J}{\partial V} \).
+
+1. First, compute \( \frac{\partial J}{\partial o} \) (the derivative of the loss function with respect to the output):
+\[
+\frac{\partial J}{\partial o} = o - t
+\]
+
+2. Next, compute \( \frac{\partial o}{\partial V} \) (the derivative of the output with respect to the \( V \) weights). Since \( o = \text{ReLU}(V \cdot h) \), and \( h = (2, 0)^T \) (from our earlier calculation), \( \frac{\partial o}{\partial V} = h \) if \( o > 0 \) and \( \frac{\partial o}{\partial V} = 0 \) otherwise.
+
+3. Finally, use the chain rule to find \( \frac{\partial J}{\partial V} \):
+\[
+\frac{\partial J}{\partial V} = \frac{\partial J}{\partial o} \times \frac{\partial o}{\partial V}
+\]
+
+Evaluate the Gradients:
+1. \( \frac{\partial J}{\partial o} = o - t = 0 - 1 = -1 \)
+2. \( \frac{\partial o}{\partial V} = (2, 0)^T \) (because \( o = 0 \) which is not greater than 0)
+3. \( \frac{\partial J}{\partial V} = -1 \times (2, 0)^T = (-2, 0) \)
+
+So, the gradient of the loss function with respect to the \( V \) weights is \( (-2, 0) \).
